@@ -17,24 +17,14 @@ namespace ASE_Assignment
             InitializeComponent();
         }
 
+
+
        
-        
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-           
-            
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void pictureBox1_Click(object sender, PaintEventArgs e)
+        private void picDrawingArea_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            Point position = new Point(100, 150);
+            Point position = new Point(120, 100);
             Shape rectangle = new Rectangle(position, Color.Blue, 10, 20);
             rectangle.Draw(graphics);
 
@@ -43,7 +33,47 @@ namespace ASE_Assignment
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Graphics g = pictureBox1.CreateGraphics();
+            if (textCommandLine.Text == "rectangle")
+            {
+                Point position = new Point(100, 100);
+                Shape rectangle = new Rectangle(position, Color.Blue, 10, 20);
+                rectangle.Draw(g);
+            }
+
+        }
+
+        private void textCommandLine_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+            button1.PerformClick();
+
+            Console.WriteLine("Enter Key was pressed");
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+        }
+
+
+        private void textCommandLine_TextChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void multiLineCommandLine_TextChanged(object sender, EventArgs e)
+        {
             
         }
+
+        private void picDrawingArea_Click(object sender, EventArgs e)
+        {
+           
+
+
+        }
+
     }
 }
