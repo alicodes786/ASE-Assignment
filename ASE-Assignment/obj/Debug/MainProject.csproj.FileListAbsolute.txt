@@ -1,0 +1,10 @@
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\bin\Debug\ASE-Assignment.exe.config
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\bin\Debug\ASE-Assignment.exe
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\bin\Debug\ASE-Assignment.pdb
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\MainProject.csproj.AssemblyReference.cache
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\ASE_Assignment.Form1.resources
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\ASE_Assignment.Properties.Resources.resources
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\MainProject.csproj.GenerateResource.cache
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\MainProject.csproj.CoreCompileInputs.cache
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\ASE-Assignment.exe
+C:\Users\hmirz\source\repos\ASE-Assignment\ASE-Assignment\obj\Debug\ASE-Assignment.pdb
