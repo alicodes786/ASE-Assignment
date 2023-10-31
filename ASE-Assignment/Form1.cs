@@ -17,14 +17,33 @@ namespace ASE_Assignment
             InitializeComponent();
         }
 
+       
+        
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+           
+            
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+            
+        }
 
+        private void pictureBox1_Click(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+            Point position = new Point(100, 150);
+            Shape rectangle = new Rectangle(position, Color.Blue, 10, 20);
+            rectangle.Draw(graphics);
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ASE_Assignment
 
@@ -18,18 +20,24 @@ namespace ASE_Assignment
         private readonly int defaultLengthValue = 100;
         private readonly int defaultWidthValue = 100;
 
-        private int length { get; set; }
-        private int height { get; set; }
+        private int Length { get; set; }
+        private int Height { get; set; }
         public Rectangle()
         {
-            length = defaultLengthValue;
-            height = defaultWidthValue;
+            Length = defaultLengthValue;
+            Height = defaultWidthValue;
         }
 
-        
-
-
-
-
+        public Rectangle(Point position,Color penColor, int length, int height) : base(penColor, position)
+        {
+            Length = length;
+            Height = height;   
+        }
+        public override void Draw(Graphics g)
+        {
+            var pen = new Pen(PenColor, 2);
+            g.DrawRectangle(pen, Position.X, Position.Y, Length, Height);
+            return;
+        }
     }
 }
