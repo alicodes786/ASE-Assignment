@@ -17,9 +17,7 @@ namespace ASE_Assignment
             InitializeComponent();
         }
 
-
-
-       
+        private readonly Cursor cursor = new Cursor();
 
         private void picDrawingArea_Paint(object sender, PaintEventArgs e)
         {
@@ -34,11 +32,17 @@ namespace ASE_Assignment
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = pictureBox1.CreateGraphics();
-            if (textCommandLine.Text == "rectangle")
+            cursor.Draw(g);
+            if (textCommandLine.Text != string.Empty)
             {
-                Point position = new Point(100, 100);
-                Shape rectangle = new Rectangle(position, Color.Blue, 10, 20);
-                rectangle.Draw(g);
+
+                
+                //Shape rectangle = new Rectangle(Color.Blue);
+                //rectangle.Draw(g);
+
+
+
+
             }
 
         }
