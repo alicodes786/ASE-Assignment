@@ -15,7 +15,7 @@ namespace ASE_Assignment
   /// </summary>
   /// <seealso cref="Shape" />
 {
-    internal class Rectangle : Shape
+    public class Rectangle : Shape
     {
         private readonly int defaultLengthValue = 100;
         private readonly int defaultWidthValue = 100;

@@ -11,7 +11,7 @@ namespace ASE_Assignment
     /// <summary>
     /// 
     /// </summary>
-    internal abstract class Shape
+    public abstract class Shape
     {
       public readonly Color defaultPenColor = Color.Green;
       public readonly Point defaultPosition = new Point(0, 0);
@@ -31,17 +31,10 @@ namespace ASE_Assignment
             Position = position;
       }
 
-      public Shape NewShape(Command shapeInCommand, Point position, Color penColor)
-        {
-            if(shapeInCommand.Equals("rectangle"))
-            {
-                return new Rectangle(position, penColor, shapeInCommand.CommandValues[0], shapeInCommand.CommandValues[1]);
-            }
-            else
-            {
-                throw new ArgumentException(null, nameof(shapeInCommand));
-            }
-        }
+      //public Shape NewShape(Command shapeInCommand, Point position, Color penColor)
+        //{
+           
+       // }
 
         public abstract void Draw(Graphics g);
     }

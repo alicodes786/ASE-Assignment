@@ -71,6 +71,7 @@ namespace ASE_Assignment
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(469, 231);
             this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.picDrawingArea_Click);
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.picDrawingArea_Paint);
@@ -93,7 +94,7 @@ namespace ASE_Assignment
             this.button2.TabIndex = 5;
             this.button2.Text = "clear";
             this.button2.UseVisualStyleBackColor = true;
-            // 
+            this.button2.Click += new System.EventHandler(this.clearBtn_Click);            
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);

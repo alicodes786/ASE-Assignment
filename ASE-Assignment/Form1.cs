@@ -37,27 +37,38 @@ namespace ASE_Assignment
             Graphics g = pictureBox1.CreateGraphics();
             cursor.Draw(g);
 
-          
-            
+            try
+            {
                 Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
                 RunCommand(g, command);
+            }
+            catch (ArgumentException ex)
+            {
+
+            }
             
-           
 
         }
 
         public void RunCommand(Graphics g, Command command)
         {
-
             switch (command.CommandName)
             {
                 case Action.rectangle:
                     Rectangle rect = new Rectangle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], command.CommandValues[1]);
                     rect.Draw(g);
                 break;
+                case Action.circle:
+                    Circle circle = new Circle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0]);
+                    circle.Draw(g);
+                break;
+                case Action.square:
+                    Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0]);
+                    square.Draw(g);
+                    break;
+
+
             }
-            
-           
             
             
         }
@@ -74,6 +85,13 @@ namespace ASE_Assignment
             Console.WriteLine("Enter Key was pressed");
             e.Handled = true;
             e.SuppressKeyPress = true;
+        }
+
+        private void clearBtn_Click(object sender, EventArgs e)
+        {
+            var g = pictureBox1.CreateGraphics();
+            g.Clear(Color.White);
+
         }
 
 
@@ -95,5 +113,6 @@ namespace ASE_Assignment
 
         }
 
+        
     }
 }

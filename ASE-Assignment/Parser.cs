@@ -46,13 +46,17 @@ namespace ASE_Assignment
         {
             input = input.ToLower();
 
-            if(input == "rectangle")
+            switch (input)
             {
-                return Action.rectangle;
-            }
-            else
-            {
-                return Action.none;
+                case "rectangle":
+                    return Action.rectangle;
+                case "circle":
+                    return Action.circle;
+                case "square":
+                    return Action.square;
+                default:
+                    return Action.none;
+
             }
         }
         
