@@ -35,10 +35,11 @@ namespace ASE_Assignment
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = pictureBox1.CreateGraphics();
-            cursor.Draw(g);
+           
 
             try
             {
+                cursor.Draw(g);
                 Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
                 RunCommand(g, command);
             }
@@ -66,7 +67,14 @@ namespace ASE_Assignment
                     Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0]);
                     square.Draw(g);
                     break;
-
+                case Action.move:
+                    cursor.MoveTo(new Point(command.CommandValues[0], command.CommandValues[1]));
+                    cursor.Draw(g);
+                    break;
+                case Action.drawto:
+                    Line line = new Line(cursor.Position, cursor.defaultPenColor, new Point(command.CommandValues[0], command.CommandValues[1]));
+                    line.Draw(g);
+                    break;
 
             }
             

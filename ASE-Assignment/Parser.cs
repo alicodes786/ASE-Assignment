@@ -44,7 +44,7 @@ namespace ASE_Assignment
 
         public Action ParseCommandName(string input)
         {
-            input = input.ToLower();
+            input = input.Trim().ToLower();
 
             switch (input)
             {
@@ -54,6 +54,10 @@ namespace ASE_Assignment
                     return Action.circle;
                 case "square":
                     return Action.square;
+                case "move":
+                    return Action.move;
+                case "drawto":
+                    return Action.drawto;
                 default:
                     return Action.none;
 

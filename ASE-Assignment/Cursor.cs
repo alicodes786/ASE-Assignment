@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,17 @@ namespace ASE_Assignment
         {
         
         }
+        public bool cursorChecker = false;
+
+        public void MoveTo(Point position)
+        {
+            Position = position;
+            
+        }
 
         public override void Draw(Graphics g)
         {
+            
             var brush = new SolidBrush(PenColor);
             g.FillRectangle(brush, Position.X, Position.Y, 4, 4);
         }
