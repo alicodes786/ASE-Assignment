@@ -31,6 +31,18 @@ namespace ASE_Assignment
             Position = position;
       }
 
-      public abstract void Draw(Graphics g);
+      public Shape NewShape(Command shapeInCommand, Point position, Color penColor)
+        {
+            if(shapeInCommand.Equals("rectangle"))
+            {
+                return new Rectangle(position, penColor, shapeInCommand.CommandValues[0], shapeInCommand.CommandValues[1]);
+            }
+            else
+            {
+                throw new ArgumentException(null, nameof(shapeInCommand));
+            }
+        }
+
+        public abstract void Draw(Graphics g);
     }
 }

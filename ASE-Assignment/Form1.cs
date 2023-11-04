@@ -18,6 +18,7 @@ namespace ASE_Assignment
         }
 
         private readonly Cursor cursor = new Cursor();
+        private readonly Parser parser = new Parser();
 
         private void picDrawingArea_Paint(object sender, PaintEventArgs e)
         {
@@ -29,23 +30,38 @@ namespace ASE_Assignment
 
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = pictureBox1.CreateGraphics();
             cursor.Draw(g);
-            if (textCommandLine.Text != string.Empty)
-            {
 
-                
-                //Shape rectangle = new Rectangle(Color.Blue);
-                //rectangle.Draw(g);
-
-
-
-
-            }
+          
+            
+                Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
+                RunCommand(g, command);
+            
+           
 
         }
+
+        public void RunCommand(Graphics g, Command command)
+        {
+
+            switch (command.CommandName)
+            {
+                case Action.rectangle:
+                    Rectangle rect = new Rectangle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], command.CommandValues[1]);
+                    rect.Draw(g);
+                break;
+            }
+            
+           
+            
+            
+        }
+       
 
         private void textCommandLine_KeyDown(object sender, KeyEventArgs e)
         {
@@ -63,7 +79,7 @@ namespace ASE_Assignment
 
         private void textCommandLine_TextChanged(object sender, EventArgs e)
         {
-
+           
 
         }
 

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace ASE_Assignment
 {
-    internal class Command
+    public class Command
     {
+        public int[] CommandValues { get; set; }
+        public Action CommandName { get; set; }
+        public Command(Action commandName, int[] commandValues) 
+        {
+           CommandName = commandName;
+           CommandValues = commandValues;
+        }
     }
 }
