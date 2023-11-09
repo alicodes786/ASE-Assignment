@@ -23,6 +23,10 @@ namespace ASE_Assignment
             Length = length;
         }
 
+        /// <summary>
+        /// Overriden draw function to draw Square with Length as the side of the square
+        /// </summary>
+        /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
             var pen = new Pen(PenColor, 1);

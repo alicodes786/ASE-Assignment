@@ -18,6 +18,11 @@ namespace ASE_Assignment
             
         }
 
+        /// <summary>
+        /// Parses command from Single Line Command Line - dividing the command into Command's Name and the parameters
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public Command ParseShapeFromSingleLineCommand(string input)
         {
 
@@ -41,6 +46,34 @@ namespace ASE_Assignment
             return new Command(commandName, paramsArrayInNumForm);
 
         }
+
+        public Command ParseShapeFromMultiLineCommand(string input)
+        {
+            input = input.ToLower();
+            string[] inputSplit = input.ToLower().Split(' ');
+
+            string stringCommandName = inputSplit[0];
+
+            Action commandName = ParseCommandName(stringCommandName);
+
+            List<string> paramsList = new List<string>();
+            for (int i = 1; i < inputSplit.Length; i++)
+            {
+                paramsList.Add(inputSplit[i]);
+            }
+
+            string[] paramsListArray = paramsList.ToArray();
+
+            int[] paramsArrayInNumForm = Array.ConvertAll(paramsListArray, int.Parse);
+
+            return new Command(commandName, paramsArrayInNumForm);
+        }
+
+        /// <summary>
+        /// This checks which command name was entered from the Enum
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
 
         public Action ParseCommandName(string input)
         {

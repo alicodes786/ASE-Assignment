@@ -33,6 +33,11 @@ namespace ASE_Assignment
             Length = length;
             Height = height;   
         }
+
+        /// <summary>
+        /// Overriden Draw function code to draw rectangle
+        /// </summary>
+        /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
             var pen = new Pen(PenColor, 2);

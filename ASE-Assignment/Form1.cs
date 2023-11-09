@@ -20,6 +20,11 @@ namespace ASE_Assignment
         private readonly Cursor cursor = new Cursor();
         private readonly Parser parser = new Parser();
 
+        /// <summary>
+        /// Testing code to see if program is working
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picDrawingArea_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
@@ -30,26 +35,40 @@ namespace ASE_Assignment
 
         }
 
-
-
+        /// <summary>
+        /// Run button command code
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             Graphics g = pictureBox1.CreateGraphics();
            
-
-            try
+            if(textCommandLine.Text != string.Empty) 
             {
-                cursor.Draw(g);
-                Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
-                RunCommand(g, command);
-            }
-            catch (ArgumentException ex)
-            {
+                try
+                {
+                    cursor.Draw(g);
+                    Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
+                    RunCommand(g, command);
+                }
+                catch (ArgumentException ex)
+                {
 
+                }
             }
+
+          
+
             
 
         }
+
+        /// <summary>
+        /// Function which will be executed when run button or run command is initiated
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="command"></param>
 
         public void RunCommand(Graphics g, Command command)
         {
@@ -81,7 +100,11 @@ namespace ASE_Assignment
             
         }
        
-
+        /// <summary>
+        /// Function which checks anything was entered into the command line and checks if "Enter" was pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textCommandLine_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode != Keys.Enter)
@@ -95,6 +118,11 @@ namespace ASE_Assignment
             e.SuppressKeyPress = true;
         }
 
+        /// <summary>
+        /// Function to be executed when clear button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clearBtn_Click(object sender, EventArgs e)
         {
             var g = pictureBox1.CreateGraphics();

@@ -23,6 +23,11 @@ namespace ASE_Assignment
             Radius = radius;
         }
 
+
+        /// <summary>
+        /// Overriden draw function to draw circle
+        /// </summary>
+        /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
             var pen = new Pen(PenColor, 3);

@@ -22,6 +22,10 @@ namespace ASE_Assignment
             ToPositionOfLine = toPosition;
         }
     
+        /// <summary>
+        /// Drawto command uses this function to draw a line between two points
+        /// </summary>
+        /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
             var pen = new Pen(PenColor, 1);

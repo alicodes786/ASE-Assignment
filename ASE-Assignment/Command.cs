@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ASE_Assignment
 {
+    /// <summary>
+    /// Command class which handles the command name and values
+    /// </summary>
     public class Command
     {
         public int[] CommandValues { get; set; }
