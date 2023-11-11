@@ -104,7 +104,7 @@ namespace ASE_Assignment
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 20);
             this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
+            this.label1.Text = "";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1

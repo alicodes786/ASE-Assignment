@@ -25,7 +25,6 @@ namespace ASE_Assignment
         /// <returns></returns>
         public Command ParseShapeFromSingleLineCommand(string input)
         {
-
             input = input.ToLower();
             //Splitting the input into array of strings
             string[] inputSplit = input.ToLower().Split(' ');
@@ -64,26 +63,21 @@ namespace ASE_Assignment
 
         }
 
-        public Command ParseShapeFromMultiLineCommand(string input)
+        public List<Command> ParseShapeFromMultiLineCommand(string input)
         {
-            input = input.ToLower();
-            string[] inputSplit = input.ToLower().Split(' ');
 
-            string stringCommandName = inputSplit[0];
+            var result = input.Split("\n\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            List<Command> commands = new List<Command>();
 
-            Action commandName = ParseCommandName(stringCommandName);
-
-            List<string> paramsList = new List<string>();
-            for (int i = 1; i < inputSplit.Length; i++)
+            foreach (string s in result)
             {
-                paramsList.Add(inputSplit[i]);
+                string line = s.Trim().ToLower();
+                Command command = ParseShapeFromSingleLineCommand(line);
+                commands.Add(command);
             }
 
-            string[] paramsListArray = paramsList.ToArray();
+            return commands;
 
-            int[] paramsArrayInNumForm = Array.ConvertAll(paramsListArray, int.Parse);
-
-            return new Command(commandName, paramsArrayInNumForm);
         }
 
         /// <summary>

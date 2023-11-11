@@ -63,8 +63,14 @@ namespace ASE_Assignment
                 try
                 {
                     cursor.Draw(g);
-                    Command command = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
-                    RunCommand(g, command);
+                    //Command command = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
+                    //RunCommand(g, command);
+
+                    List<Command> commands = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
+                    for(int i = 0; i < commands.Count; i++)
+                    {
+                        RunCommand(g, commands[i]);
+                    }
                 }
                 catch (ArgumentException ex)
                 {
