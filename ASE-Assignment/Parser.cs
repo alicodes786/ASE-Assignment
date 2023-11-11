@@ -27,11 +27,28 @@ namespace ASE_Assignment
         {
 
             input = input.ToLower();
+            //Splitting the input into array of strings
             string[] inputSplit = input.ToLower().Split(' ');
+
+            if(inputSplit.Length >= 4)
+            {
+                throw new ArgumentException("Parameters limit exceeded");
+            }
 
             string stringCommandName = inputSplit[0];
 
             Action commandName = ParseCommandName(stringCommandName);
+
+            if (commandName == Action.none)
+            {
+                throw new ArgumentException("INVALID");
+            }
+
+            if (inputSplit.Length == 1 && commandName != Action.run && commandName != Action.clear && commandName != Action.reset)
+            {
+                throw new ArgumentException("Error - Parameter(s) missing here");
+            }
+
 
             List<string> paramsList = new List<string>();
             for(int i = 1; i < inputSplit.Length; i++)
@@ -91,6 +108,8 @@ namespace ASE_Assignment
                     return Action.move;
                 case "drawto":
                     return Action.drawto;
+                case "fill":
+                    return Action.fill;
                 default:
                     return Action.none;
 

@@ -18,7 +18,7 @@ namespace ASE_Assignment
             Length = defaultLength;
         }
 
-        public Square(Point position, Color penColor, int length) : base(position, penColor, length, length)
+        public Square(Point position, Color penColor, int length, bool fill) : base(position, penColor, length, length, fill)
         {
             Length = length;
         }

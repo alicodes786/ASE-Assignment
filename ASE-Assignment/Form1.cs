@@ -29,7 +29,7 @@ namespace ASE_Assignment
         {
             Graphics graphics = e.Graphics;
             Point position = new Point(120, 100);
-            Shape rectangle = new Rectangle(position, Color.Blue, 10, 20);
+            Shape rectangle = new Rectangle(position, Color.Blue, 10, 20, true);
             rectangle.Draw(graphics);
 
 
@@ -54,13 +54,23 @@ namespace ASE_Assignment
                 }
                 catch (ArgumentException ex)
                 {
-
+                    label1.Text = ex.Message;
                 }
             }
 
-          
-
-            
+            if (multiLineCommandLine.Text != string.Empty)
+            {
+                try
+                {
+                    cursor.Draw(g);
+                    Command command = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
+                    RunCommand(g, command);
+                }
+                catch (ArgumentException ex)
+                {
+                    label1.Text = ex.Message;
+                }
+            }
 
         }
 
@@ -75,15 +85,15 @@ namespace ASE_Assignment
             switch (command.CommandName)
             {
                 case Action.rectangle:
-                    Rectangle rect = new Rectangle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], command.CommandValues[1]);
+                    Rectangle rect = new Rectangle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], command.CommandValues[1], cursor.Fill);
                     rect.Draw(g);
                 break;
                 case Action.circle:
-                    Circle circle = new Circle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0]);
+                    Circle circle = new Circle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], cursor.Fill);
                     circle.Draw(g);
                 break;
                 case Action.square:
-                    Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0]);
+                    Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], cursor.Fill);
                     square.Draw(g);
                     break;
                 case Action.move:
@@ -91,13 +101,27 @@ namespace ASE_Assignment
                     cursor.Draw(g);
                     break;
                 case Action.drawto:
-                    Line line = new Line(cursor.Position, cursor.defaultPenColor, new Point(command.CommandValues[0], command.CommandValues[1]));
+                    Line line = new Line(cursor.Position, cursor.defaultPenColor, new Point(command.CommandValues[0], command.CommandValues[1]), cursor.Fill);
                     line.Draw(g);
+                    break;
+                case Action.run:
+                    RunCommand(g, command);
+                    break;
+                case Action.fill:
+                    if (command.CommandValues[0] == 1)
+                    {
+                        cursor.Fill = true;
+                    }
+
+                    if (command.CommandValues[0] == 0)
+                    {
+                        cursor.Fill = false;
+                    }
                     break;
 
             }
-            
-            
+
+
         }
        
         /// <summary>
@@ -127,6 +151,9 @@ namespace ASE_Assignment
         {
             var g = pictureBox1.CreateGraphics();
             g.Clear(Color.White);
+            label1.Text = "";
+            textCommandLine.Text = label1.Text;
+
 
         }
 
@@ -149,6 +176,9 @@ namespace ASE_Assignment
 
         }
 
-        
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

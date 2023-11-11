@@ -18,7 +18,7 @@ namespace ASE_Assignment
            Radius = defaultRadius;
         }
 
-        public Circle(Point position, Color penColor, int radius) : base(penColor, position)
+        public Circle(Point position, Color penColor, int radius, bool fill) : base(penColor, position, fill)
         {
             Radius = radius;
         }

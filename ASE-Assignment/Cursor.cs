@@ -26,6 +26,11 @@ namespace ASE_Assignment
             
         }
 
+        public void FillChange(bool fillState)
+        {
+            Fill = fillState;
+        }
+
         public override void Draw(Graphics g)
         {
             var brush = new SolidBrush(PenColor);

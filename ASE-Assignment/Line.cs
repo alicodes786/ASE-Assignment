@@ -17,7 +17,7 @@ namespace ASE_Assignment
             ToPositionOfLine = defaultPositionOfLine;
         }
 
-        public Line(Point positionOfLine, Color penColor, Point toPosition) : base(penColor, positionOfLine)
+        public Line(Point positionOfLine, Color penColor, Point toPosition, bool fill) : base(penColor, positionOfLine, fill)
         {
             ToPositionOfLine = toPosition;
         }

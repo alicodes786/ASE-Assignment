@@ -28,7 +28,7 @@ namespace ASE_Assignment
             Height = defaultWidthValue;
         }
 
-        public Rectangle(Point position,Color penColor, int length, int height) : base(penColor, position)
+        public Rectangle(Point position,Color penColor, int length, int height, bool fill) : base(penColor, position, fill)
         {
             Length = length;
             Height = height;   
@@ -40,9 +40,18 @@ namespace ASE_Assignment
         /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
-            var pen = new Pen(PenColor, 2);
-            g.DrawRectangle(pen, Position.X, Position.Y, Length, Height);
+           
+            //Fill
+            if (!Fill)
+            {
+                var pen = new Pen(PenColor, 2);
+                g.DrawRectangle(pen, Position.X, Position.Y, Length, Height);
+                return;
+            }
+            var brush = new SolidBrush(PenColor);
+            g.FillRectangle(brush, Position.X, Position.Y, Length, Height);
             return;
+
         }
     }
 }
