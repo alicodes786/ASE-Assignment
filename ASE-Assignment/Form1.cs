@@ -63,9 +63,6 @@ namespace ASE_Assignment
                 try
                 {
                     cursor.Draw(g);
-                    //Command command = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
-                    //RunCommand(g, command);
-
                     List<Command> commands = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
                     for(int i = 0; i < commands.Count; i++)
                     {
@@ -101,6 +98,10 @@ namespace ASE_Assignment
                 case Action.square:
                     Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], cursor.Fill);
                     square.Draw(g);
+                    break;
+                case Action.triangle:
+                    Triangle triangle = new Triangle(cursor.Position, cursor.Fill,cursor.defaultPenColor, command.CommandValues[0]);
+                    triangle.Draw(g);
                     break;
                 case Action.move:
                     cursor.MoveTo(new Point(command.CommandValues[0], command.CommandValues[1]));

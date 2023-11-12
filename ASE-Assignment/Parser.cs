@@ -98,6 +98,8 @@ namespace ASE_Assignment
                     return Action.circle;
                 case "square":
                     return Action.square;
+                case "triangle":
+                    return Action.triangle;
                 case "move":
                     return Action.move;
                 case "drawto":

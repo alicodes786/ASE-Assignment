@@ -46,11 +46,6 @@ namespace ASE_Assignment
             Fill = fill;
       }
 
-      //public Shape NewShape(Command shapeInCommand, Point position, Color penColor)
-        //{
-           
-       // }
-
         public abstract void Draw(Graphics g);
     }
 }

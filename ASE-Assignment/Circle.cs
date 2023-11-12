@@ -30,9 +30,16 @@ namespace ASE_Assignment
         /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
-            var pen = new Pen(PenColor, 3);
-            g.DrawEllipse(pen, Position.X - Radius, Position.Y - Radius, Radius * 2, Radius * 2);
-            return;
+            if (!Fill)
+            {
+                var pen = new Pen(PenColor, 3);
+                g.DrawEllipse(pen, Position.X - Radius, Position.Y - Radius, Radius * 2, Radius * 2);
+                return;
+            }
+
+
+            var brush = new SolidBrush(PenColor);
+            g.FillEllipse(brush, Position.X - Radius, Position.Y - Radius, Radius * 2, Radius * 2);
 
         }
     }

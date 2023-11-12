@@ -29,9 +29,16 @@ namespace ASE_Assignment
         /// <param name="g"></param>
         public override void Draw(Graphics g)
         {
-            var pen = new Pen(PenColor, 1);
-            g.DrawRectangle(pen, Position.X, Position.Y, Length, Length);
-            return;
+            if (!Fill)
+            {
+                var pen = new Pen(PenColor, 1);
+                g.DrawRectangle(pen, Position.X, Position.Y, Length, Length);
+                return;
+            }
+
+            var brush = new SolidBrush(PenColor);
+            g.FillRectangle(brush, Position.X, Position.Y, Length, Length);
+            
         }
     }
 }
