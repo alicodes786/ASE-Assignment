@@ -88,19 +88,19 @@ namespace ASE_Assignment
             switch (command.CommandName)
             {
                 case Action.rectangle:
-                    Rectangle rect = new Rectangle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], command.CommandValues[1], cursor.Fill);
+                    Rectangle rect = new Rectangle(cursor.Position, cursor.PenColor, command.CommandValues[0], command.CommandValues[1], cursor.Fill);
                     rect.Draw(g);
                 break;
                 case Action.circle:
-                    Circle circle = new Circle(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], cursor.Fill);
+                    Circle circle = new Circle(cursor.Position, cursor.PenColor, command.CommandValues[0], cursor.Fill);
                     circle.Draw(g);
                 break;
                 case Action.square:
-                    Square square = new Square(cursor.Position, cursor.defaultPenColor, command.CommandValues[0], cursor.Fill);
+                    Square square = new Square(cursor.Position, cursor.PenColor, command.CommandValues[0], cursor.Fill);
                     square.Draw(g);
                     break;
                 case Action.triangle:
-                    Triangle triangle = new Triangle(cursor.Position, cursor.Fill,cursor.defaultPenColor, command.CommandValues[0]);
+                    Triangle triangle = new Triangle(cursor.Position, cursor.Fill,cursor.PenColor, command.CommandValues[0]);
                     triangle.Draw(g);
                     break;
                 case Action.move:
@@ -108,7 +108,7 @@ namespace ASE_Assignment
                     cursor.Draw(g);
                     break;
                 case Action.drawto:
-                    Line line = new Line(cursor.Position, cursor.defaultPenColor, new Point(command.CommandValues[0], command.CommandValues[1]), cursor.Fill);
+                    Line line = new Line(cursor.Position, cursor.PenColor, new Point(command.CommandValues[0], command.CommandValues[1]), cursor.Fill);
                     line.Draw(g);
                     break;
                 case Action.run:
@@ -126,6 +126,36 @@ namespace ASE_Assignment
                     }
                     break;
 
+                case Action.reset:
+                    {
+                        cursor.MoveTo(cursor.Position);
+                        cursor.Draw(g);
+                        cursor.FillChange(cursor.defaultFill);
+                    }
+                    break;
+                case Action.pen:
+                    {
+                        if (command.CommandValues[0].Equals(1))
+                        {
+                            cursor.PenColor = Color.Blue;
+                        }
+                        if (command.CommandValues[0].Equals(2))
+                        {
+                            cursor.PenColor = Color.Red;
+                        }
+                        if (command.CommandValues[0].Equals(3))
+                        {
+                            cursor.PenColor = Color.Green;
+                        }
+                        cursor.Draw(g);
+                        break;
+                    }
+                case Action.clear:
+                    {
+                        g.Clear(Color.White);
+                        cursor.Draw(g);
+                    }
+                    break;
             }
 
 

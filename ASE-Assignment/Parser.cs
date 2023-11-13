@@ -106,6 +106,12 @@ namespace ASE_Assignment
                     return Action.drawto;
                 case "fill":
                     return Action.fill;
+                case "reset":
+                    return Action.reset;
+                case "pen":
+                    return Action.pen;
+                case "clear":
+                    return Action.clear;
                 default:
                     return Action.none;
 
