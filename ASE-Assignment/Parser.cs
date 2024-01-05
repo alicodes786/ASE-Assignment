@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,37 @@ namespace ASE_Assignment
             
         }
 
+
+        public List<Command> Parse(string userInput, Dictionary<string, int> store)
+        {
+            // List which will have all commands
+            List<Command> commands = new List<Command>();
+
+            string[] userInputSplitLines = userInput.Split('\n');
+
+            foreach (string line in userInputSplitLines)
+            {
+                string inputLine = line.ToLower();
+
+                // Check for While loops
+                if (inputLine.Trim().ToLower().Contains("while"))
+                {
+                    Command command = ParseWhile(inputLine);
+                    commands.Add(command);
+
+                }
+            }
+
+            return commands;
+        }
+
+
         /// <summary>
         /// Parses command from Single Line Command Line - dividing the command into Command's Name and the parameters
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public Command ParseShapeFromSingleLineCommand(string input)
+        public CommandGenerator ParseShapeFromSingleLineCommand(string input)
         {
             input = input.ToLower();
             //Splitting the input into array of strings
@@ -59,20 +85,20 @@ namespace ASE_Assignment
 
             int[] paramsArrayInNumForm = Array.ConvertAll(paramsListArray, int.Parse);
 
-            return new Command(commandName, paramsArrayInNumForm);
+            return new CommandGenerator(commandName, paramsArrayInNumForm);
 
         }
 
-        public List<Command> ParseShapeFromMultiLineCommand(string input)
+        public List<CommandGenerator> ParseShapeFromMultiLineCommand(string input)
         {
 
             var result = input.Split("\n\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            List<Command> commands = new List<Command>();
+            List<CommandGenerator> commands = new List<CommandGenerator>();
 
             foreach (string s in result)
             {
                 string line = s.Trim().ToLower();
-                Command command = ParseShapeFromSingleLineCommand(line);
+                CommandGenerator command = ParseShapeFromSingleLineCommand(line);
                 commands.Add(command);
             }
 
@@ -80,11 +106,47 @@ namespace ASE_Assignment
 
         }
 
-        /// <summary>
-        /// This checks which command name was entered from the Enum
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        private Command ParseWhile(string input)
+        {
+            string[] inputSplitLines = input.Split(' ');
+
+
+            // Loop count with commmandWhile
+            Command command = new CommandWhileLoop(Action.whileloop, int.Parse(inputSplitLines[1]));
+            return command;
+        }
+
+        private VariableCommand ParseVariable(string userInput, Dictionary<string, int> variableStore)
+        {
+            string[] splitVariable = userInput.Split('=');
+            string expression = splitVariable[1].Trim();
+
+            string nameOfVariable = splitVariable[0].Substring(3).Trim();
+
+            int outcome = EvaluateExpression(variableStore, expression);
+
+
+            VariableCommand commandVariable = new VariableCommand(Action.var, nameOfVariable, outcome);
+
+            return commandVariable;
+   
+        }
+
+        private int EvaluateExpression(Dictionary<string, int> variableStore, string expression)
+        {
+            //
+            foreach(KeyValuePair<string, int> kvp in variableStore)
+            {
+                if (expression.Contains(kvp.Key))
+                {
+                    expression = expression.Replace(kvp.Key, kvp.Value.ToString());
+                }
+            }
+
+            int outcome = Convert.ToInt32(new DataTable().Compute(expression, null));
+
+            return outcome;
+        }
 
         public Action ParseCommandName(string input)
         {
@@ -112,6 +174,8 @@ namespace ASE_Assignment
                     return Action.pen;
                 case "clear":
                     return Action.clear;
+                case "run":
+                    return Action.run;
                 default:
                     return Action.none;
 

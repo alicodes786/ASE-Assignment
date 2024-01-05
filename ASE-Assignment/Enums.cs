@@ -18,5 +18,7 @@
         reset,
         end,
         none,
+        var, 
+        whileloop
     }
 }

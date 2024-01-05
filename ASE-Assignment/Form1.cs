@@ -12,13 +12,16 @@ namespace ASE_Assignment
 {
     public partial class Form1 : Form
     {
+       
+        private readonly Cursor cursor = new Cursor();
+        private readonly Parser parser = new Parser();
+        //private readonly ShapeGenerator _shapeGenerator = ShapeGenerator.Instance;
+        Dictionary<string, int> storageOfVariables = new Dictionary<string, int>();
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        private readonly Cursor cursor = new Cursor();
-        private readonly Parser parser = new Parser();
 
         /// <summary>
         /// Testing code to see if program is working
@@ -27,11 +30,7 @@ namespace ASE_Assignment
         /// <param name="e"></param>
         private void picDrawingArea_Paint(object sender, PaintEventArgs e)
         {
-            Graphics graphics = e.Graphics;
-            Point position = new Point(120, 100);
-            Shape rectangle = new Rectangle(position, Color.Blue, 10, 20, true);
-            rectangle.Draw(graphics);
-
+           
 
         }
 
@@ -48,8 +47,9 @@ namespace ASE_Assignment
             {
                 try
                 {
+                    //Single line commands parsing
                     cursor.Draw(g);
-                    Command command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
+                    CommandGenerator command = parser.ParseShapeFromSingleLineCommand(textCommandLine.Text);
                     RunCommand(g, command);
                 }
                 catch (ArgumentException ex)
@@ -58,15 +58,40 @@ namespace ASE_Assignment
                 }
             }
 
+            // MultiLine Command parsing and Executing
             if (multiLineCommandLine.Text != string.Empty)
             {
+                cursor.Draw(g);
                 try
-                {
-                    cursor.Draw(g);
-                    List<Command> commands = parser.ParseShapeFromMultiLineCommand(multiLineCommandLine.Text);
+                {   //Multi line commands parsing
+
+                    List<Command> commands = parser.Parse(multiLineCommandLine.Text, storageOfVariables);
                     for(int i = 0; i < commands.Count; i++)
                     {
-                        RunCommand(g, commands[i]);
+                        if (commands[i] is CommandWhileLoop)
+                        {
+                            CommandWhileLoop currentCommand = (CommandWhileLoop)commands[i];
+                            int loopStartIndex= i + 1;
+                            int loopEndIndex = commands.FindIndex(loopStartIndex, x => x is CommandEnd) - 1; // Looks for end keyword after the loopstart
+
+                            string[] inputLines = multiLineCommandLine.Text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                            string inputLoop = "";
+
+                            for (int counterLoop = loopStartIndex; counterLoop <= loopEndIndex; counterLoop++)
+                            {
+                                inputLoop+= inputLines[counterLoop];
+                            }
+
+                            for(int loopIndex = 1; loopIndex < currentCommand.LoopCount; loopIndex++)
+                            {
+                                List<Command> loopCommands = parser.Parse(inputLoop, storageOfVariables);
+
+                                for (int k = 0; k < loopCommands.Count; k++)
+                                {
+                                    RunCommand(g, (CommandGenerator)loopCommands[k]);
+                                }
+                            }
+                        }
                     }
                 }
                 catch (ArgumentException ex)
@@ -83,24 +108,24 @@ namespace ASE_Assignment
         /// <param name="g"></param>
         /// <param name="command"></param>
 
-        public void RunCommand(Graphics g, Command command)
+        public void RunCommand(Graphics g, CommandGenerator command)
         {
             switch (command.CommandName)
             {
                 case Action.rectangle:
                     Rectangle rect = new Rectangle(cursor.Position, cursor.PenColor, command.CommandValues[0], command.CommandValues[1], cursor.Fill);
                     rect.Draw(g);
-                break;
+                    break;
                 case Action.circle:
                     Circle circle = new Circle(cursor.Position, cursor.PenColor, command.CommandValues[0], cursor.Fill);
                     circle.Draw(g);
-                break;
+                    break;
                 case Action.square:
                     Square square = new Square(cursor.Position, cursor.PenColor, command.CommandValues[0], cursor.Fill);
                     square.Draw(g);
                     break;
                 case Action.triangle:
-                    Triangle triangle = new Triangle(cursor.Position, cursor.Fill,cursor.PenColor, command.CommandValues[0]);
+                    Triangle triangle = new Triangle(cursor.Position, cursor.Fill, cursor.PenColor, command.CommandValues[0]);
                     triangle.Draw(g);
                     break;
                 case Action.move:
@@ -111,6 +136,7 @@ namespace ASE_Assignment
                     Line line = new Line(cursor.Position, cursor.PenColor, new Point(command.CommandValues[0], command.CommandValues[1]), cursor.Fill);
                     line.Draw(g);
                     break;
+
                 case Action.run:
                     RunCommand(g, command);
                     break;
@@ -128,8 +154,10 @@ namespace ASE_Assignment
 
                 case Action.reset:
                     {
-                        cursor.MoveTo(cursor.Position);
+                        cursor.MoveTo(cursor.defaultPosition);
                         cursor.Draw(g);
+                        textCommandLine.Text = "";
+                        multiLineCommandLine.Text = "";
                         cursor.FillChange(cursor.defaultFill);
                     }
                     break;
@@ -156,6 +184,14 @@ namespace ASE_Assignment
                         cursor.Draw(g);
                     }
                     break;
+                //default:
+                   // {
+                     //   Shape shape = _shapeGenerator.GenerateShape(command, cursor.Position, cursor.Fill, cursor.PenColor);
+                       // shape.Draw(g);
+                       // cursor.MoveTo(shape.Position);
+                        //cursor.Draw(g);
+                        //break;
+                    //}
             }
 
 
@@ -190,7 +226,7 @@ namespace ASE_Assignment
             g.Clear(Color.White);
             label1.Text = "";
             textCommandLine.Text = label1.Text;
-
+            multiLineCommandLine.Text = label1.Text;
 
         }
 
