@@ -19,6 +19,7 @@
         end,
         none,
         var, 
-        whileloop
+        whileloop,
+        ifcondition,
     }
 }

@@ -65,7 +65,7 @@ namespace ASE_Assignment
                 try
                 {   //Multi line commands parsing
 
-                    List<Command> commands = parser.Parse(multiLineCommandLine.Text, storageOfVariables);
+                    List<Command> commands = parser.Parse(multiLineCommandLine.Text, storageOfVariables); 
                     for(int i = 0; i < commands.Count; i++)
                     {
                         if (commands[i] is CommandWhileLoop)
@@ -91,6 +91,24 @@ namespace ASE_Assignment
                                     RunCommand(g, (CommandGenerator)loopCommands[k]);
                                 }
                             }
+                        }
+
+                        else if (commands[i] is IfStatementCommand)
+                        {
+                            IfStatementCommand command = (IfStatementCommand)commands[i];
+                            if (command.IfCondition)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                i = command.IndexEnd;
+                            }
+                        }
+
+                        else if (commands[i] is CommandGenerator)
+                        {
+                            RunCommand(g, (CommandGenerator)commands[i]);
                         }
                     }
                 }

@@ -68,6 +68,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Cursor.cs" />
+    <Compile Include="IfStatementCommand.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Rectangle.cs" />
