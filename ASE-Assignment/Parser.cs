@@ -19,7 +19,7 @@ namespace ASE_Assignment
         {
             
         }
-        private const string RegexDrawWithVariables = @"^([a-zA-Z]+)\s*([a-zA-Z]+)? ?([a-zA-Z]+)?$";
+        private const string RegexVariables = @"^([a-zA-Z]+)\s*([a-zA-Z]+)? ?([a-zA-Z]+)?$";
 
         public List<Command> Parse(string userInput, Dictionary<string, int> store)
         {
@@ -35,7 +35,7 @@ namespace ASE_Assignment
                 string inputLine = line.ToLower();
 
                 // Check for While loops
-                if (inputLine.Trim().ToLower().Contains("while"))
+                if (inputLine.Trim().ToLower().Contains("whileloop"))
                 {
                     Command command = ParseWhile(inputLine);
                     commands.Add(command);
@@ -48,8 +48,8 @@ namespace ASE_Assignment
                     commands.Add(command);
                 }
 
-                // Draw Shapes with Variables
-                else if(Regex.IsMatch(inputLine.Trim().ToLower(), RegexDrawWithVariables))
+                // Draw Shapes with Variables rectangle x or square x
+                else if (Regex.IsMatch(inputLine.Trim().ToLower(), RegexVariables))
                 {
                     Command command = ParseDrawShapeWithVariable(inputLine, store);
                     commands.Add(command);
@@ -68,7 +68,7 @@ namespace ASE_Assignment
                     {
                         store.Add(command.VariableName, command.ValueOfVariable);
                     }
-                    commands.Add(command); 
+                    commands.Add(command);
                 }
 
                 // if condition commands
@@ -79,10 +79,17 @@ namespace ASE_Assignment
                     int endIndex = Array.IndexOf(userInputSplitLines, "endif");
 
                     bool outcome = ParseIfCondition(inputLine, store);
-                    
+
                     Command command = new IfStatementCommand(Action.ifcondition, outcome, indexStart, endIndex);
                     commands.Add(command);
                 }
+
+                else if (!Regex.IsMatch(inputLine.TrimEnd().ToLower(), RegexVariables))
+                {
+                    Command command = ParseShapeFromSingleLineCommand(inputLine);
+                    commands.Add(command);
+                }
+
 
                 else
                 {
@@ -172,6 +179,17 @@ namespace ASE_Assignment
         {
             string[] userInputArray = userInput.Split(' ');
 
+            if (!store.ContainsKey(userInputArray[1]))
+            {
+                throw new ArgumentException("Invalid input");
+            }
+
+            // Check if the input is valid
+            if (!int.TryParse(userInputArray[3], out int variableValue))
+            {
+                throw new ArgumentException("Invalid input");
+            }
+
             if (!int.TryParse(userInputArray[3], out int valueOfVariable))
             {
                 throw new ArgumentException("Invalid Input");
@@ -249,9 +267,21 @@ namespace ASE_Assignment
                 throw new ArgumentException("Invalid input");
             }
 
+            if (!store.ContainsKey(userInputArray[1]))
+            {
+                throw new ArgumentException("Invalid command");
+            }
+
             CommandGenerator commandShape = new CommandGenerator(commandName, new int[] { store[userInputArray[1]] });
             
-            commandShape.CommandValues = commandShape.CommandValues.Concat(new int[] { store[userInputArray[2]] }).ToArray();
+            if(userInputArray.Length == 3)
+            {
+                if (!store.ContainsKey(userInputArray[2]))
+                {
+                    throw new ArgumentException("Invalid command");
+                }
+                commandShape.CommandValues = commandShape.CommandValues.Concat(new int[] { store[userInputArray[2]] }).ToArray();
+            }
             return commandShape;
         }
 

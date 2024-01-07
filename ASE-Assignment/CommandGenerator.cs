@@ -12,10 +12,10 @@ namespace ASE_Assignment
     public class CommandGenerator : Command
     {
         public int[] CommandValues { get; set; }
-        public Action CommandShape { get; set; }
+       
         public CommandGenerator(Action commandName, int[] commandValues)
         {
-            CommandShape = commandName;
+            CommandName = commandName;
             CommandValues = commandValues;
         }
     }
