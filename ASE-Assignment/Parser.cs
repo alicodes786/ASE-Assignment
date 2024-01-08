@@ -20,7 +20,7 @@ namespace ASE_Assignment
             
         }
         private const string RegexVariables = @"^([a-zA-Z]+)\s*([a-zA-Z]+)? ?([a-zA-Z]+)?$";
-
+        private const string RegexLoops = @"while.+";
         public List<Command> Parse(string userInput, Dictionary<string, int> store)
         {
             // List which will have all commands
@@ -35,10 +35,22 @@ namespace ASE_Assignment
                 string inputLine = line.ToLower();
 
                 // Check for While loops
-                if (inputLine.Trim().ToLower().Contains("whileloop"))
+                if (Regex.IsMatch(inputLine.TrimEnd().ToLower(), RegexLoops))
                 {
-                    Command command = ParseWhile(inputLine);
-                    commands.Add(command);
+                    if (!Regex.IsMatch(inputLine.TrimEnd().ToLower(), RegexVariables))
+                    {
+                        Command command = ParseWhile(inputLine);
+                        commands.Add(command);
+                    }
+
+                    else
+                    {
+                        Command command = ParseWhileWithVariables(inputLine, store);
+                        commands.Add(command);
+                    }
+
+
+
                 }
 
                 // End Commands
@@ -175,6 +187,29 @@ namespace ASE_Assignment
             return command;
         }
 
+        private Command ParseWhileWithVariables(string input, Dictionary<string, int> store)
+        {
+            string[] inputSplitLines = input.Split(' ');
+
+            Console.WriteLine(inputSplitLines);
+
+            if (store.ContainsKey(inputSplitLines[1]))
+            {
+                int valueOfCount = store[inputSplitLines[1]];
+                CommandWhileLoop command= new CommandWhileLoop(Action.whileloop, valueOfCount);
+               
+                return command;
+            }
+
+            else
+            {
+                throw new ArgumentException("Invalid command");
+            }
+
+            // Loop count with commmandWhile
+            
+        }
+
         private bool ParseIfCondition(string userInput, Dictionary<string, int> store)
         {
             string[] userInputArray = userInput.Split(' ');
@@ -185,10 +220,6 @@ namespace ASE_Assignment
             }
 
             // Check if the input is valid
-            if (!int.TryParse(userInputArray[3], out int variableValue))
-            {
-                throw new ArgumentException("Invalid input");
-            }
 
             if (!int.TryParse(userInputArray[3], out int valueOfVariable))
             {
@@ -233,7 +264,6 @@ namespace ASE_Assignment
             string nameOfVariable = splitVariable[0].Substring(3).Trim();
 
             int outcome = EvaluateExpression(variableStore, expression);
-
 
             VariableCommand commandVariable = new VariableCommand(Action.var, nameOfVariable, outcome);
 

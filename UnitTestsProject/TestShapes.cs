@@ -16,7 +16,7 @@ namespace UnitTestsProject
             string input = "rectangle 100 150";
 
             // command
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             //assertion
             Assert.AreEqual(Action.rectangle, command.CommandName);
@@ -31,7 +31,7 @@ namespace UnitTestsProject
             // test data
             string inputRect = "RECTANGLE 100 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputRect);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputRect);
             
             // Assert
             Assert.AreEqual(Action.rectangle, command.CommandName);
@@ -45,7 +45,7 @@ namespace UnitTestsProject
         {
             string inputRect = "ReCTaNgle 50 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputRect);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputRect);
 
             Assert.AreEqual(Action.rectangle, command.CommandName);
             Assert.IsNotNull(command);
@@ -57,7 +57,7 @@ namespace UnitTestsProject
         {
             string inputRect = "rectangle 100 200";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputRect);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputRect);
 
             Assert.AreEqual (Action.rectangle, command.CommandName);
             Assert.IsNotNull(command);
@@ -80,7 +80,7 @@ namespace UnitTestsProject
         {
             string inputCircle = "circle 50";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputCircle);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputCircle);
 
             // Assertions
             Assert.IsTrue(command != null);
@@ -93,7 +93,7 @@ namespace UnitTestsProject
         {
             string inputCircle = "circle 50 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputCircle);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputCircle);
             
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.circle, command.CommandName);
@@ -107,7 +107,7 @@ namespace UnitTestsProject
         {
             string inputCircle = "CIRCLE 50 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputCircle);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputCircle);
 
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.circle, command.CommandName);
@@ -118,7 +118,7 @@ namespace UnitTestsProject
         {
             string inputCircle = "cIRcLe 50 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputCircle);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputCircle);
 
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.circle, command.CommandName);
@@ -146,7 +146,7 @@ namespace UnitTestsProject
         {
             string inputSquare = "SQUARE 50";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputSquare);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputSquare);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.square, command.CommandName);
         }
@@ -156,7 +156,7 @@ namespace UnitTestsProject
         {
             string inputSquare = "sQUaRe 50";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputSquare);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputSquare);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.square, command.CommandName);
         }
@@ -167,7 +167,7 @@ namespace UnitTestsProject
         {
             string inputSquare = "square 50";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputSquare);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputSquare);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.square, command.CommandName);
             Assert.AreEqual(50, command.CommandValues[0]);
@@ -185,7 +185,7 @@ namespace UnitTestsProject
         {
             string input = "triangle 150";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             //assert
 
@@ -199,7 +199,7 @@ namespace UnitTestsProject
         {
             string input = "TriANgLe 150";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             //assert
 
@@ -214,7 +214,7 @@ namespace UnitTestsProject
         {
             string input = "triangle 100";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             //assert
 
@@ -236,7 +236,7 @@ namespace UnitTestsProject
         {
             string inputLinePoints = "drawto 100 140";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.drawto, command.CommandName);
             Assert.AreNotEqual(Action.circle, command.CommandName);
@@ -247,7 +247,7 @@ namespace UnitTestsProject
         {
             string inputLinePoints = "dRaWTo 100 140";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.drawto, command.CommandName);
             Assert.AreNotEqual(Action.circle, command.CommandName);
@@ -258,7 +258,7 @@ namespace UnitTestsProject
         {
             string inputLinePoints = "drawto 100 140";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputLinePoints);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.drawto, command.CommandName);
             Assert.AreEqual(100, command.CommandValues[0]);
@@ -277,7 +277,7 @@ namespace UnitTestsProject
         {
             string inputMove = "move 100 120";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputMove);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputMove);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.move, command.CommandName);
         }
@@ -287,7 +287,7 @@ namespace UnitTestsProject
         {
             string inputMove = "move 100 120";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(inputMove);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(inputMove);
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.move, command.CommandName);
             Assert.AreEqual(100, command.CommandValues[0]);
@@ -304,7 +304,7 @@ namespace UnitTestsProject
         {
             string input = "pen 2";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             Assert.IsTrue(command != null);
             
@@ -321,7 +321,7 @@ namespace UnitTestsProject
         {
             string input = "clear";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             Assert.IsTrue(command != null);
             
@@ -338,7 +338,7 @@ namespace UnitTestsProject
         {
             string input = "reset";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             Assert.IsTrue(command != null);
 
@@ -355,7 +355,7 @@ namespace UnitTestsProject
         {
             string input = "fill 1";
 
-            Command command = parser.ParseShapeFromSingleLineCommand(input);
+            CommandGenerator command = parser.ParseShapeFromSingleLineCommand(input);
 
             Assert.IsTrue(command != null);
             Assert.AreEqual(Action.fill, command.CommandName);
