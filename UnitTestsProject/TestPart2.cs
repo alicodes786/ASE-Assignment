@@ -10,6 +10,9 @@ using Action = ASE_Assignment.Action;
 
 namespace UnitTestsProject
 {
+    /// <summary>
+    /// This unit test class if for testing variable setting and to see if it works
+    /// </summary>
     [TestClass()]
     public class VariableDeclaration
     {
@@ -44,6 +47,9 @@ namespace UnitTestsProject
 
     }
 
+    /// <summary>
+    /// This Unit is for Ifconditions to see how they return true or false
+    /// </summary>
     [TestClass()]
     public class IfConditionTesting
     {
@@ -80,6 +86,10 @@ namespace UnitTestsProject
         }
     }
 
+    /// <summary>
+    /// This unit test is to test the functioning of while loops
+    /// </summary>
+    [TestClass()]
     public class TestWhileLoops
     {
         Parser parser = new Parser();
@@ -94,6 +104,18 @@ namespace UnitTestsProject
             Assert.AreEqual(Action.var, commands[0].CommandName);
             Assert.AreEqual(Action.whileloop, commands[1].CommandName);
             Assert.AreEqual(Action.rectangle, commands[2].CommandName);
+        }
+
+        [TestMethod()]
+        public void ParseWhileLoopsTestingWithVariables()
+        {
+            string input = "var x = 100\r\nwhileloop x\r\nrectangle x\r\nend";
+            List<Command> commands = parser.Parse(input, new Dictionary<string, int>());
+
+            Assert.AreEqual(Action.var, commands[0].CommandName);
+            Assert.AreEqual(Action.whileloop, commands[1].CommandName);
+            
+
         }
     }
 }

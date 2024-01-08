@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace ASE_Assignment
         private readonly Parser parser = new Parser();
         //private readonly ShapeGenerator _shapeGenerator = ShapeGenerator.Instance;
         Dictionary<string, int> storageOfVariables = new Dictionary<string, int>();
-
+        private const string TextFile = "Text File| *.txt";
         public Form1()
         {
             InitializeComponent();
@@ -248,6 +249,43 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// Save button - saves any list of commands
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.FileName = "AllCommands.txt";
+            save.Filter = TextFile;
+            save.RestoreDirectory = true;
+
+            if(save.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(save.FileName, multiLineCommandLine.Text);
+            }
+        }
+
+        /// <summary>
+        /// Loads any saved files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = TextFile;
+            open.RestoreDirectory = true;
+
+            if(open.ShowDialog() == DialogResult.OK)
+            {
+                multiLineCommandLine.Text = File.ReadAllText(open.FileName);
+            }
+
+        }
+
 
         private void textCommandLine_TextChanged(object sender, EventArgs e)
         {
@@ -271,5 +309,7 @@ namespace ASE_Assignment
         {
             
         }
+
+        
     }
 }
